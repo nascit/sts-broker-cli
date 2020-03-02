@@ -1,13 +1,12 @@
 import {Command, flags} from '@oclif/command'
 import * as inquirer from 'inquirer'
 import { exec } from "child_process";
-import axios from 'axios'
 import cli from 'cli-ux'
 
 const storage = require("node-persist");
 
 export default class Policies extends Command {
-  static description = 'describe the command here'
+  static description = 'Get policies this user can retrieve'
 
   static flags = {
     ...cli.table.flags(),

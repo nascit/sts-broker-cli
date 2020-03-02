@@ -29,9 +29,9 @@ USAGE
 # Commands
 <!-- commands -->
 * [`stsbroker configure`](#stsbroker-configure)
-* [`stsbroker hello [FILE]`](#stsbroker-hello-file)
 * [`stsbroker help [COMMAND]`](#stsbroker-help-command)
-* [`stsbroker policies [FILE]`](#stsbroker-policies-file)
+* [`stsbroker policies`](#stsbroker-policies)
+* [`stsbroker request [FILE]`](#stsbroker-request-file)
 
 ## `stsbroker configure`
 
@@ -43,26 +43,6 @@ USAGE
 ```
 
 _See code: [src/commands/configure.ts](https://github.com/sts-broker-cli/stsbroker/blob/v0.0.0/src/commands/configure.ts)_
-
-## `stsbroker hello [FILE]`
-
-describe the command here
-
-```
-USAGE
-  $ stsbroker hello [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-
-EXAMPLE
-  $ stsbroker hello
-  hello world from ./src/hello.ts!
-```
-
-_See code: [src/commands/hello.ts](https://github.com/sts-broker-cli/stsbroker/blob/v0.0.0/src/commands/hello.ts)_
 
 ## `stsbroker help [COMMAND]`
 
@@ -81,13 +61,34 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
 
-## `stsbroker policies [FILE]`
+## `stsbroker policies`
 
 describe the command here
 
 ```
 USAGE
-  $ stsbroker policies [FILE]
+  $ stsbroker policies
+
+OPTIONS
+  -x, --extended          show extra columns
+  --columns=columns       only show provided columns (comma-separated)
+  --csv                   output is csv format [alias: --output=csv]
+  --filter=filter         filter property by partial string matching, ex: name=foo
+  --no-header             hide table header from output
+  --no-truncate           do not truncate output to fit screen
+  --output=csv|json|yaml  output in a more machine friendly format
+  --sort=sort             property to sort by (prepend '-' for descending)
+```
+
+_See code: [src/commands/policies.ts](https://github.com/sts-broker-cli/stsbroker/blob/v0.0.0/src/commands/policies.ts)_
+
+## `stsbroker request [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ stsbroker request [FILE]
 
 OPTIONS
   -f, --force
@@ -95,5 +96,5 @@ OPTIONS
   -n, --name=name  name to print
 ```
 
-_See code: [src/commands/policies.ts](https://github.com/sts-broker-cli/stsbroker/blob/v0.0.0/src/commands/policies.ts)_
+_See code: [src/commands/request.ts](https://github.com/sts-broker-cli/stsbroker/blob/v0.0.0/src/commands/request.ts)_
 <!-- commandsstop -->
