@@ -5,7 +5,7 @@ import cli from 'cli-ux'
 
 const storage = require("node-persist");
 
-const prompt = async (): any => {
+const prompt = async (): Promise<any> => {
 
   const region = await cli.prompt('In what region is the STS Broker hosted?', { required: false })
 
@@ -22,7 +22,9 @@ const prompt = async (): any => {
     "endpoint": endpoint,
     "userPoolId": userPoolId,
     "userPoolWebClientId": userPoolWebClientId,
-    "cognito_domain": cognito_domain
+    "cognito_domain": cognito_domain,
+    "redirectSignIn": "http://localhost:3000",
+    "redirectSignOut": "http://localhost:3000"
   }
 
   await storage.setItem('config', config)

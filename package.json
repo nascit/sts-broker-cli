@@ -11,6 +11,8 @@
     "@oclif/command": "^1.5.19",
     "@oclif/config": "^1.14.0",
     "@oclif/plugin-help": "^2.2.3",
+    "@types/fs-extra": "^8.1.0",
+    "@types/inquirer": "^6.5.0",
     "await-exec": "^0.1.2",
     "axios": "^0.19.2",
     "cli-ux": "^5.4.5",
