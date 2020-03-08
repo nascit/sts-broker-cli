@@ -2,27 +2,49 @@ import {Command, flags} from '@oclif/command'
 import * as fs from 'fs-extra'
 import * as path from 'path'
 import cli from 'cli-ux'
-
-const storage = require("node-persist");
+const inquirer = require('inquirer')
+const storage = require("node-persist")
+const chalk = require('chalk')
+const tmp = require('tmp');
 
 const prompt = async (): Promise<any> => {
 
-  const region = await cli.prompt('In what region is the STS Broker hosted?', { required: false })
+  let getRegion: any = await inquirer.prompt([{
+    name: 'region',
+    message: 'In what region is the STS Broker hosted?',
+    type: 'input'
+  }])
 
-  const endpoint = await cli.prompt('What is your STS Broker endpoint? (eg.: "xxxxx.execute-api.us-east-2.amazonaws.com/Prod")')
+  let getEndpoint: any = await inquirer.prompt([{
+    name: 'endpoint',
+    message: 'What is your STS Broker endpoint? (eg.: "xxxxx.execute-api.us-east-2.amazonaws.com/Prod")',
+    type: 'input'
+  }])
 
-  const userPoolId = await cli.prompt('What is your Cognito User Pool ID?')
+  let getUserPoolId: any = await inquirer.prompt([{
+    name: 'userPoolId',
+    message: 'What is your Cognito User Pool ID?',
+    type: 'input'
+  }])
 
-  const userPoolWebClientId = await cli.prompt('What is your Cognito User Pool client ID?')
+  let getUserPoolWebClientId: any = await inquirer.prompt([{
+    name: 'userPoolWebClientId',
+    message: 'What is your Cognito User Pool client ID?',
+    type: 'input'
+  }])
 
-  const cognito_domain = await cli.prompt('What is your Cognito domain URL? (eg.: "stsbroker.auth.us-east-2.amazoncognito.com")')
+  let getCognitoDomain: any = await inquirer.prompt([{
+    name: 'cognitoDomain',
+    message: 'What is your Cognito domain URL? (eg.: "stsbroker.auth.us-east-2.amazoncognito.com")',
+    type: 'input'
+  }])
 
   const config = {
-    "region": region,
-    "endpoint": endpoint,
-    "userPoolId": userPoolId,
-    "userPoolWebClientId": userPoolWebClientId,
-    "cognito_domain": cognito_domain,
+    "region": getRegion.region,
+    "endpoint": getEndpoint.endpoint,
+    "userPoolId": getUserPoolId.userPoolId,
+    "userPoolWebClientId": getUserPoolWebClientId.userPoolWebClientId,
+    "domain": getCognitoDomain.cognitoDomain,
     "redirectSignIn": "http://localhost:3000",
     "redirectSignOut": "http://localhost:3000"
   }
@@ -35,12 +57,15 @@ export default class Configure extends Command {
 
   async run() {
 
-    await storage.init({ dir: this.config.configDir })
+    try {
+      await storage.init({ dir: this.config.configDir })
+      console.log(await storage.getItem('config'));
 
-    await prompt()
-
-    this.log(JSON.stringify(await storage.getItem('config'), null, 4))
-
+      await prompt()
+    } catch(error) {
+      this.error(chalk.red("Something wen wrong while configuring your STS Broker."))
+    }
+    this.log(chalk.blue("You have successfully configured your STS Broker."))
   }
 
 }

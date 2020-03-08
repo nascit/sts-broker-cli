@@ -1,43 +1,60 @@
-import {Command, flags} from '@oclif/command'
-import * as inquirer from 'inquirer'
+import{Command, flags}from '@oclif/command'
+const inquirer = require('inquirer')
 import axios from 'axios'
 import cli from 'cli-ux'
-const exec = require('await-exec')
 const storage = require("node-persist");
+var tmp = require('tmp');
+import * as fs from "fs";
+import { getToken } from "../cognito";
+const chalk = require('chalk')
 
 export default class Request extends Command {
-  static description = 'Make a permission request to the STS Broker'
+static description = 'Make a permission request to the STS Broker'
 
   static flags = {
     ...cli.table.flags(),
+    reset: flags.boolean({ description: "Reset Cognito credentials" })
   }
 
   async run() {
 
+    const { flags } = this.parse(Request);
+
     await storage.init({ dir: this.config.configDir })
 
-    const config = await storage.getItem('config');
+    const config = await storage.getItem('config')
 
-    const command = `cognitocurl --cognitoclient ${config.userPoolWebClientId} --userpool ${config.userPoolId} --run "curl -X GET ${config.endpoint}/policies"`;
+    var tmpobj = tmp.fileSync()
+
+    fs.writeFileSync(tmpobj.name, JSON.stringify(config))
 
     try {
-      cli.action.start('Retrieving policies available for you', 'Just a moment :)', {stdout: true});
 
-      let policies = await exec(command);
+      const cognitoToken: string = await getToken({
+        hostedUI: tmpobj.name,
+        reset: flags.reset
+      })
 
-      cli.action.stop('Done!');
+      cli.action.start(chalk.blue("Let's check what policies are available for you"))
 
-      if (policies.stdout) {
-        let choices = JSON.parse(policies.stdout).map(
+      axios.defaults.headers.common['Authorization'] = cognitoToken
+      axios.defaults.headers.post['Content-Type'] = 'application/json'
+      const response = await axios.get(config.endpoint + '/policies')
+
+      cli.action.stop(chalk.blue("Done!"))
+
+      var policies = response.data
+
+      if (policies) {
+        var choices = policies.map(
           obj => {
             return {
-              "name" : obj.id + " - " + obj.description,
-              "value": obj.id
+              "name" : obj.policy_id + " - " + obj.description,
+              "value": obj.policy_id
             }
           }
         );
         let policy = "";
-        let sessionDuration = 3600;
 
         let policy_response: any = await inquirer.prompt([{
           name: 'policy',
@@ -54,34 +71,22 @@ export default class Request extends Command {
           choices: [{name: '15 minutes', value: 900}, {name: '1 hour', value: 3600}, {name: '6 hours', value: 21600}, {name: '12 hours', value: 43200}],
         }])
 
-        sessionDuration = duration_response.sessionDuration;
+        var sessionDuration = duration_response.sessionDuration;
 
-        cli.action.start('Making the permission request', 'Just a moment :)', {stdout: true})
+        cli.action.start(chalk.blue("Making the permission request"))
 
-        const command = `cognitocurl --cognitoclient ${config.userPoolWebClientId} --userpool ${config.userPoolId} --token`;
-
-        let token = await exec(command);
-
-        var url = new URL(config.endpoint);
-
-        axios.defaults.baseURL = url.origin;
-        axios.defaults.headers.common['Authorization'] = token.stdout.toString().replace(/\r?\n|\r/g, '');
-        axios.defaults.headers.post['Content-Type'] = 'application/json';
-
-        const {data: response} = await axios.post(url.pathname + '/credentials/request', {
+        const {data: response} = await axios.post(config.endpoint + '/credentials/request', {
           policy: policy,
           sessionDuration: sessionDuration
         });
 
-        cli.action.stop(response);
-
+        cli.action.stop(chalk.blue(response));
       } else {
-        this.log(policies.stdout, policies.stderr);
+        this.error("No STS Broker policies are available for you.")
         process.exit();
       }
     } catch (error) {
-      this.log("Sorry, it seems something went wrong while contacting your STS Broker");
-      this.log(error);
+      this.error(chalk.red("Sorry, it seems something went wrong while contacting your STS Broker"));
       return true;
     }
 
