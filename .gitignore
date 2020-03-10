@@ -2,10 +2,13 @@
 *-error.log
 /.nyc_output
 /dist
-/dist/*
 /lib
 /tmp
 /yarn.lock
 node_modules
 .idea
 hostedui.json
+hostedui/node_modules
+hostedui/index.html
+
+.DS_Store

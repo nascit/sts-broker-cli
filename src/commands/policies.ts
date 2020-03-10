@@ -61,9 +61,11 @@ export default class Policies extends Command {
           ...flags, // parsed flags
         },
       )
+      process.exit();
 
     } catch (error) {
       this.error(chalk.red("Sorry... It seems like something went wrong while retrieving your policy list"));
+      process.exit();
     }
 
   }

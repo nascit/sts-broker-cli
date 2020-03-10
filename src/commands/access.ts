@@ -10,7 +10,7 @@ const chalk = require('chalk')
 const exec = require('await-exec')
 
 export default class Access extends Command {
-  static description = 'describe the command here'
+  static description = 'Assume the temporary session'
 
   static flags = {
     help: flags.help({char: 'h'}),
@@ -50,9 +50,10 @@ export default class Access extends Command {
         await cli.open(response.data.signin_url)
       }
 
+      process.exit();
     } catch (error) {
       this.error(chalk.red("Sorry, it seems something went wrong while contacting your STS Broker"));
-      return true;
+      process.exit();
     }
   }
 }

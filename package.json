@@ -1,8 +1,8 @@
 {
   "name": "stsbroker",
   "description": "CLI to configure and interact with your own AWS STS Broker.",
-  "version": "0.0.1",
-  "author": "nascit",
+  "version": "0.0.2",
+  "author": "Timoteo Nascimento",
   "bin": {
     "stsbroker": "./bin/run"
   },
@@ -48,11 +48,16 @@
   "files": [
     "/bin",
     "/lib",
-    "/npm-shrinkwrap.json",
-    "/oclif.manifest.json"
+    "/hostedui/dist"
   ],
   "homepage": "https://github.com/nascit/sts-broker-cli",
   "keywords": [
+    "aws",
+    "cognito",
+    "IAM",
+    "STS",
+    "identity",
+    "broker",
     "oclif"
   ],
   "license": "MIT",
@@ -64,7 +69,7 @@
       "@oclif/plugin-help"
     ]
   },
-  "repository": "sts-broker-cli",
+  "repository": "nascit/sts-broker-cli",
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "eslint . --ext .ts --config .eslintrc",

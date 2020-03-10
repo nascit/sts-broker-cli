@@ -12,7 +12,6 @@ export default class Request extends Command {
 static description = 'Make a permission request to the STS Broker'
 
   static flags = {
-    ...cli.table.flags(),
     reset: flags.boolean({ description: "Reset Cognito credentials" })
   }
 
@@ -87,7 +86,7 @@ static description = 'Make a permission request to the STS Broker'
       }
     } catch (error) {
       this.error(chalk.red("Sorry, it seems something went wrong while contacting your STS Broker"));
-      return true;
+      process.exit();
     }
 
   }
