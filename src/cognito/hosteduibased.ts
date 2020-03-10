@@ -53,7 +53,7 @@ app.ws("/", function(ws: any) {
 
         const idToken: string = JSON.parse(msg).idToken;
         const refreshToken: string = JSON.parse(msg).refreshToken;
-        const idTokenTTI: number = +new Date() + 1800000; // now + 1/2 hour
+        const idTokenTTI: number = +new Date() + 1800000; // TODO: use jwtDecode(token).exp
         const username: string = JSON.parse(msg).username;
 
         TokenStorage.add(poolData, {
@@ -87,9 +87,9 @@ const GetTokenFromPersistedCredentials = (data: string, poolData: any) =>
     };
     const cognitoUser = new CognitoUser(userData);
 
-//     console.log(new Date(now));
-//
-//     console.log(new Date(tokens.idTokenTTI));
+    console.log(new Date(now));
+
+    console.log(new Date(tokens.idTokenTTI));
 
     if (now > tokens.idTokenTTI) {
       cognitoUser.refreshSession(

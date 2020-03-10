@@ -19,7 +19,7 @@ $ npm install -g stsbroker
 $ stsbroker COMMAND
 running command...
 $ stsbroker (-v|--version|version)
-stsbroker/0.0.2 darwin-x64 node-v13.10.1
+stsbroker/0.0.4 darwin-x64 node-v13.10.1
 $ stsbroker --help [COMMAND]
 USAGE
   $ stsbroker COMMAND
@@ -48,7 +48,7 @@ OPTIONS
   --profile=profile  (required) AWS Profile
 ```
 
-_See code: [src/commands/access.ts](https://github.com/nascit/sts-broker-cli/blob/v0.0.2/src/commands/access.ts)_
+_See code: [src/commands/access.ts](https://github.com/nascit/sts-broker-cli/blob/v0.0.4/src/commands/access.ts)_
 
 ## `stsbroker configure`
 
@@ -59,7 +59,7 @@ USAGE
   $ stsbroker configure
 ```
 
-_See code: [src/commands/configure.ts](https://github.com/nascit/sts-broker-cli/blob/v0.0.2/src/commands/configure.ts)_
+_See code: [src/commands/configure.ts](https://github.com/nascit/sts-broker-cli/blob/v0.0.4/src/commands/configure.ts)_
 
 ## `stsbroker help [COMMAND]`
 
@@ -98,7 +98,7 @@ OPTIONS
   --sort=sort             property to sort by (prepend '-' for descending)
 ```
 
-_See code: [src/commands/policies.ts](https://github.com/nascit/sts-broker-cli/blob/v0.0.2/src/commands/policies.ts)_
+_See code: [src/commands/policies.ts](https://github.com/nascit/sts-broker-cli/blob/v0.0.4/src/commands/policies.ts)_
 
 ## `stsbroker request`
 
@@ -112,5 +112,5 @@ OPTIONS
   --reset  Reset Cognito credentials
 ```
 
-_See code: [src/commands/request.ts](https://github.com/nascit/sts-broker-cli/blob/v0.0.2/src/commands/request.ts)_
+_See code: [src/commands/request.ts](https://github.com/nascit/sts-broker-cli/blob/v0.0.4/src/commands/request.ts)_
 <!-- commandsstop -->
