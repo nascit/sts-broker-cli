@@ -1,12 +1,12 @@
 {
   "name": "stsbroker",
   "description": "CLI to configure and interact with your own AWS STS Broker.",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "nascit",
   "bin": {
     "stsbroker": "./bin/run"
   },
-  "bugs": "https://github.com/sts-broker-cli/stsbroker/issues",
+  "bugs": "https://github.com/nascit/sts-broker-cli/issues",
   "dependencies": {
     "@oclif/command": "^1.5.19",
     "@oclif/config": "^1.14.0",
@@ -51,7 +51,7 @@
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
-  "homepage": "https://github.com/sts-broker-cli/stsbroker",
+  "homepage": "https://github.com/nascit/sts-broker-cli",
   "keywords": [
     "oclif"
   ],
@@ -64,7 +64,7 @@
       "@oclif/plugin-help"
     ]
   },
-  "repository": "sts-broker-cli/stsbroker",
+  "repository": "sts-broker-cli",
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "eslint . --ext .ts --config .eslintrc",

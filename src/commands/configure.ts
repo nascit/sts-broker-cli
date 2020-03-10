@@ -59,8 +59,6 @@ export default class Configure extends Command {
 
     try {
       await storage.init({ dir: this.config.configDir })
-      console.log(await storage.getItem('config'));
-
       await prompt()
     } catch(error) {
       this.error(chalk.red("Something wen wrong while configuring your STS Broker."))

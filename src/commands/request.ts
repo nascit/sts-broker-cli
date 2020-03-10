@@ -1,4 +1,4 @@
-import{Command, flags}from '@oclif/command'
+import {Command, flags}from '@oclif/command'
 const inquirer = require('inquirer')
 import axios from 'axios'
 import cli from 'cli-ux'

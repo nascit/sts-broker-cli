@@ -19,7 +19,7 @@ $ npm install -g stsbroker
 $ stsbroker COMMAND
 running command...
 $ stsbroker (-v|--version|version)
-stsbroker/0.0.0 darwin-x64 node-v13.8.0
+stsbroker/0.0.0 darwin-x64 node-v13.10.1
 $ stsbroker --help [COMMAND]
 USAGE
   $ stsbroker COMMAND
@@ -28,10 +28,27 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`stsbroker access`](#stsbroker-access)
 * [`stsbroker configure`](#stsbroker-configure)
 * [`stsbroker help [COMMAND]`](#stsbroker-help-command)
 * [`stsbroker policies`](#stsbroker-policies)
-* [`stsbroker request [FILE]`](#stsbroker-request-file)
+* [`stsbroker request`](#stsbroker-request)
+
+## `stsbroker access`
+
+describe the command here
+
+```
+USAGE
+  $ stsbroker access
+
+OPTIONS
+  -c, --console      Open AWS Console
+  -h, --help         show CLI help
+  --profile=profile  (required) AWS Profile
+```
+
+_See code: [src/commands/access.ts](https://github.com/sts-broker-cli/stsbroker/blob/v0.0.0/src/commands/access.ts)_
 
 ## `stsbroker configure`
 
@@ -63,7 +80,7 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3
 
 ## `stsbroker policies`
 
-describe the command here
+Get STS Broker policies available
 
 ```
 USAGE
@@ -77,23 +94,30 @@ OPTIONS
   --no-header             hide table header from output
   --no-truncate           do not truncate output to fit screen
   --output=csv|json|yaml  output in a more machine friendly format
+  --reset                 Reset Cognito credentials
   --sort=sort             property to sort by (prepend '-' for descending)
 ```
 
 _See code: [src/commands/policies.ts](https://github.com/sts-broker-cli/stsbroker/blob/v0.0.0/src/commands/policies.ts)_
 
-## `stsbroker request [FILE]`
+## `stsbroker request`
 
-describe the command here
+Make a permission request to the STS Broker
 
 ```
 USAGE
-  $ stsbroker request [FILE]
+  $ stsbroker request
 
 OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+  -x, --extended          show extra columns
+  --columns=columns       only show provided columns (comma-separated)
+  --csv                   output is csv format [alias: --output=csv]
+  --filter=filter         filter property by partial string matching, ex: name=foo
+  --no-header             hide table header from output
+  --no-truncate           do not truncate output to fit screen
+  --output=csv|json|yaml  output in a more machine friendly format
+  --reset                 Reset Cognito credentials
+  --sort=sort             property to sort by (prepend '-' for descending)
 ```
 
 _See code: [src/commands/request.ts](https://github.com/sts-broker-cli/stsbroker/blob/v0.0.0/src/commands/request.ts)_
