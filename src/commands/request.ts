@@ -80,12 +80,13 @@ static description = 'Make a permission request to the STS Broker'
         });
 
         cli.action.stop(chalk.blue(response));
+
       } else {
         this.error("No STS Broker policies are available for you.")
-        process.exit();
       }
+      process.exit();
     } catch (error) {
-      this.error(chalk.red("Sorry, it seems something went wrong while contacting your STS Broker"));
+      this.error(chalk.red("Sorry, it seems something went wrong while contacting your STS Broker: " + JSON.stringify(error.response.data)))
       process.exit();
     }
 

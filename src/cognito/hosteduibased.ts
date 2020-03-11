@@ -87,10 +87,6 @@ const GetTokenFromPersistedCredentials = (data: string, poolData: any) =>
     };
     const cognitoUser = new CognitoUser(userData);
 
-    console.log(new Date(now));
-
-    console.log(new Date(tokens.idTokenTTI));
-
     if (now > tokens.idTokenTTI) {
       cognitoUser.refreshSession(
         RefreshToken(tokens.refreshToken),
