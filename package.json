@@ -1,7 +1,7 @@
 {
   "name": "stsbroker",
   "description": "CLI to configure and interact with your own AWS STS Broker.",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "Timoteo Nascimento",
   "bin": {
     "stsbroker": "./bin/run"
