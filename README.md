@@ -1,4 +1,4 @@
-stsbroker
+stsbroker CLI
 =========
 
 CLI to configure and interact with your own AWS STS Broker.
@@ -19,7 +19,7 @@ $ npm install -g stsbroker
 $ stsbroker COMMAND
 running command...
 $ stsbroker (-v|--version|version)
-stsbroker/0.0.5 darwin-x64 node-v13.10.1
+stsbroker/0.0.6 darwin-x64 node-v13.10.1
 $ stsbroker --help [COMMAND]
 USAGE
   $ stsbroker COMMAND
@@ -48,7 +48,7 @@ OPTIONS
   --profile=profile  (required) AWS Profile
 ```
 
-_See code: [src/commands/access.ts](https://github.com/nascit/sts-broker-cli/blob/v0.0.5/src/commands/access.ts)_
+_See code: [src/commands/access.ts](https://github.com/nascit/sts-broker-cli/blob/v0.0.6/src/commands/access.ts)_
 
 ## `stsbroker configure`
 
@@ -57,9 +57,24 @@ Configure your STS Broker
 ```
 USAGE
   $ stsbroker configure
+
+CONFIGURATION VARIABLES
+       The following configuration variables are supported in the config file:
+
+       o STS Broker region
+
+       o STS Broker endpoint - STS Broker API endpoint. 
+         Can be a API Gateway stage endpoint (""xxxxx.execute-api.us-east-2.amazonaws.com/Prod"")
+         or a custom domain.
+
+       o Cognito User Pool ID
+
+       o Cognito User Pool App Client ID
+
+       o Cognito domain
 ```
 
-_See code: [src/commands/configure.ts](https://github.com/nascit/sts-broker-cli/blob/v0.0.5/src/commands/configure.ts)_
+_See code: [src/commands/configure.ts](https://github.com/nascit/sts-broker-cli/blob/v0.0.6/src/commands/configure.ts)_
 
 ## `stsbroker help [COMMAND]`
 
@@ -98,7 +113,7 @@ OPTIONS
   --sort=sort             property to sort by (prepend '-' for descending)
 ```
 
-_See code: [src/commands/policies.ts](https://github.com/nascit/sts-broker-cli/blob/v0.0.5/src/commands/policies.ts)_
+_See code: [src/commands/policies.ts](https://github.com/nascit/sts-broker-cli/blob/v0.0.6/src/commands/policies.ts)_
 
 ## `stsbroker request`
 
@@ -112,5 +127,5 @@ OPTIONS
   --reset  Reset Cognito credentials
 ```
 
-_See code: [src/commands/request.ts](https://github.com/nascit/sts-broker-cli/blob/v0.0.5/src/commands/request.ts)_
+_See code: [src/commands/request.ts](https://github.com/nascit/sts-broker-cli/blob/v0.0.6/src/commands/request.ts)_
 <!-- commandsstop -->

@@ -7,6 +7,7 @@ var tmp = require('tmp');
 import * as fs from "fs";
 import { getToken } from "../cognito";
 const chalk = require('chalk')
+var jwtDecode = require('jwt-decode');
 
 export default class Request extends Command {
 static description = 'Make a permission request to the STS Broker'
@@ -40,6 +41,8 @@ static description = 'Make a permission request to the STS Broker'
       axios.defaults.headers.post['Content-Type'] = 'application/json'
       const response = await axios.get(config.endpoint + '/policies')
 
+      var decoded = jwtDecode(cognitoToken);
+
       cli.action.stop(chalk.blue("Done!"))
 
       var policies = response.data
@@ -72,11 +75,25 @@ static description = 'Make a permission request to the STS Broker'
 
         var sessionDuration = duration_response.sessionDuration;
 
+        var channel_choices = [{name: 'E-mail', value: 'email'}]
+        if (decoded["phone_number"]) channel_choices.push({name: 'SMS', value: 'sms'})
+        if (decoded["slack_channel"]) channel_choices.push({name: 'Slack', value: 'slack'})
+
+        let channel_response: any = await inquirer.prompt([{
+          name: 'notificationChannel',
+          message: 'Where do you want to be reached once the request is approved?',
+          type: 'list',
+          choices: channel_choices,
+        }])
+
+        var notificationChannel = channel_response.notificationChannel;
+
         cli.action.start(chalk.blue("Making the permission request"))
 
         const {data: response} = await axios.post(config.endpoint + '/credentials/request', {
           policy: policy,
-          sessionDuration: sessionDuration
+          sessionDuration: sessionDuration,
+          notificationChannel: notificationChannel
         });
 
         cli.action.stop(chalk.blue(response));
