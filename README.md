@@ -57,7 +57,23 @@ Configure your STS Broker
 ```
 USAGE
   $ stsbroker configure
+
+CONFIGURATION VARIABLES
+       The following configuration variables are supported in the config file:
+
+       o STS Broker region
+
+       o STS Broker endpoint - STS Broker API endpoint. 
+         Can be a API Gateway stage endpoint (""xxxxx.execute-api.us-east-2.amazonaws.com/Prod"")
+         or a custom domain.
+
+       o Cognito User Pool ID
+
+       o Cognito User Pool App Client ID
+
+       o Cognito domain
 ```
+![](configure.gif)
 
 _See code: [src/commands/configure.ts](https://github.com/nascit/sts-broker-cli/blob/v0.0.7/src/commands/configure.ts)_
 
