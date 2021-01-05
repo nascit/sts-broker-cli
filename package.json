@@ -15,7 +15,7 @@
     "@types/inquirer": "^6.5.0",
     "amazon-cognito-identity-js": "^3.2.5",
     "await-exec": "^0.1.2",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "chalk": "^3.0.0",
     "cli-ux": "^5.4.5",
     "express": "^4.17.1",
